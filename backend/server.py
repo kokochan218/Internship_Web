@@ -416,6 +416,8 @@ async def get_evaluations(current_user: dict = Depends(get_current_user)):
     if current_user["role"] == "kaprodi":
         evaluations = list(evaluations_collection.find({}))
         for eval in evaluations:
+            if "_id" in eval:
+                del eval["_id"]
             student = users_collection.find_one({"id": eval["student_id"]})
             internship = internships_collection.find_one({"id": eval["internship_id"]})
             eval["student_name"] = student["full_name"] if student else "Unknown"
@@ -423,6 +425,8 @@ async def get_evaluations(current_user: dict = Depends(get_current_user)):
     else:
         evaluations = list(evaluations_collection.find({"student_id": current_user["id"]}))
         for eval in evaluations:
+            if "_id" in eval:
+                del eval["_id"]
             internship = internships_collection.find_one({"id": eval["internship_id"]})
             eval["internship_title"] = internship["title"] if internship else "Unknown"
     
