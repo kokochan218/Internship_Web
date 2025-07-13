@@ -352,6 +352,8 @@ async def get_applications(current_user: dict = Depends(get_current_user)):
         applications = list(applications_collection.find({}))
         # Get student and internship details
         for app in applications:
+            if "_id" in app:
+                del app["_id"]
             student = users_collection.find_one({"id": app["student_id"]})
             internship = internships_collection.find_one({"id": app["internship_id"]})
             app["student_name"] = student["full_name"] if student else "Unknown"
@@ -359,6 +361,8 @@ async def get_applications(current_user: dict = Depends(get_current_user)):
     else:
         applications = list(applications_collection.find({"student_id": current_user["id"]}))
         for app in applications:
+            if "_id" in app:
+                del app["_id"]
             internship = internships_collection.find_one({"id": app["internship_id"]})
             app["internship_title"] = internship["title"] if internship else "Unknown"
     
