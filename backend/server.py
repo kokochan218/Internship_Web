@@ -294,6 +294,10 @@ async def delete_student(student_id: str, current_user: dict = Depends(get_curre
 @app.get("/api/internships")
 async def get_internships(current_user: dict = Depends(get_current_user)):
     internships = list(internships_collection.find({}))
+    # Convert MongoDB ObjectId to string for JSON serialization
+    for internship in internships:
+        if "_id" in internship:
+            del internship["_id"]
     return internships
 
 @app.post("/api/internships")
