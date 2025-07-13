@@ -385,6 +385,8 @@ async def get_reports(current_user: dict = Depends(get_current_user)):
     if current_user["role"] == "kaprodi":
         reports = list(reports_collection.find({}))
         for report in reports:
+            if "_id" in report:
+                del report["_id"]
             student = users_collection.find_one({"id": report["student_id"]})
             internship = internships_collection.find_one({"id": report["internship_id"]})
             report["student_name"] = student["full_name"] if student else "Unknown"
@@ -392,6 +394,8 @@ async def get_reports(current_user: dict = Depends(get_current_user)):
     else:
         reports = list(reports_collection.find({"student_id": current_user["id"]}))
         for report in reports:
+            if "_id" in report:
+                del report["_id"]
             internship = internships_collection.find_one({"id": report["internship_id"]})
             report["internship_title"] = internship["title"] if internship else "Unknown"
     
