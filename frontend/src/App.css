@@ -1,38 +1,262 @@
-.App {
-    text-align: center;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Custom styles for the internship monitoring system */
+.app {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+/* Custom animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-.App-link {
-    color: #61dafb;
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
+
+/* Custom card hover effects */
+.card-hover {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom button styles */
+.btn-primary {
+  @apply bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors duration-200;
+}
+
+.btn-secondary {
+  @apply bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition-colors duration-200;
+}
+
+.btn-success {
+  @apply bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors duration-200;
+}
+
+.btn-danger {
+  @apply bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors duration-200;
+}
+
+/* Custom form styles */
+.form-input {
+  @apply block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500;
+}
+
+.form-label {
+  @apply block text-sm font-medium text-gray-700 mb-1;
+}
+
+/* Custom table styles */
+.table {
+  @apply min-w-full divide-y divide-gray-200;
+}
+
+.table-header {
+  @apply bg-gray-50;
+}
+
+.table-header th {
+  @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
+}
+
+.table-row {
+  @apply bg-white hover:bg-gray-50;
+}
+
+.table-cell {
+  @apply px-6 py-4 whitespace-nowrap text-sm text-gray-900;
+}
+
+/* Custom status badges */
+.status-badge {
+  @apply px-2 py-1 text-xs font-medium rounded-full;
+}
+
+.status-pending {
+  @apply bg-yellow-100 text-yellow-800;
+}
+
+.status-approved {
+  @apply bg-green-100 text-green-800;
+}
+
+.status-rejected {
+  @apply bg-red-100 text-red-800;
+}
+
+.status-active {
+  @apply bg-blue-100 text-blue-800;
+}
+
+/* Custom progress bar */
+.progress-bar {
+  @apply w-full bg-gray-200 rounded-full h-2;
+}
+
+.progress-fill {
+  @apply h-2 rounded-full transition-all duration-300;
+}
+
+/* Custom sidebar styles */
+.sidebar {
+  @apply bg-white w-64 shadow-sm h-screen overflow-y-auto;
+}
+
+.sidebar-item {
+  @apply w-full flex items-center px-4 py-2 text-sm font-medium rounded-md transition-colors duration-200;
+}
+
+.sidebar-item.active {
+  @apply bg-blue-100 text-blue-700;
+}
+
+.sidebar-item:not(.active) {
+  @apply text-gray-600 hover:bg-gray-50 hover:text-gray-900;
+}
+
+/* Custom modal styles */
+.modal-overlay {
+  @apply fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50;
+}
+
+.modal-content {
+  @apply relative top-20 mx-auto p-5 border w-11/12 max-w-md shadow-lg rounded-md bg-white;
+}
+
+/* Custom notification styles */
+.notification {
+  @apply fixed top-4 right-4 p-4 rounded-md shadow-lg z-50 transition-all duration-300;
+}
+
+.notification.success {
+  @apply bg-green-100 text-green-800 border border-green-200;
+}
+
+.notification.error {
+  @apply bg-red-100 text-red-800 border border-red-200;
+}
+
+.notification.info {
+  @apply bg-blue-100 text-blue-800 border border-blue-200;
+}
+
+.notification.warning {
+  @apply bg-yellow-100 text-yellow-800 border border-yellow-200;
+}
+
+/* Custom loading spinner */
+.loading-spinner {
+  @apply animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600;
+}
+
+/* Custom responsive utilities */
+@media (max-width: 768px) {
+  .sidebar {
+    @apply w-full h-auto;
+  }
+  
+  .main-content {
+    @apply ml-0;
+  }
+}
+
+/* Custom print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-only {
+    display: block !important;
+  }
+}
+
+/* Custom dark mode support */
+@media (prefers-color-scheme: dark) {
+  .dark-mode {
+    @apply bg-gray-900 text-white;
+  }
+  
+  .dark-mode .card {
+    @apply bg-gray-800 border-gray-700;
+  }
+  
+  .dark-mode .form-input {
+    @apply bg-gray-800 border-gray-600 text-white;
+  }
+}
+
+/* Custom focus styles for accessibility */
+.focus-visible:focus {
+  @apply outline-none ring-2 ring-blue-500 ring-offset-2;
+}
+
+/* Custom typography */
+.text-gradient {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Custom layout utilities */
+.container-custom {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.grid-auto-fit {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Custom shadow utilities */
+.shadow-soft {
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+}
+
+.shadow-strong {
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Custom border utilities */
+.border-gradient {
+  border: 2px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(135deg, #667eea, #764ba2) border-box;
 }
