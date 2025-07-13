@@ -255,6 +255,10 @@ async def get_students(current_user: dict = Depends(get_current_user)):
         raise HTTPException(status_code=403, detail="Access denied")
     
     students = list(users_collection.find({"role": "student"}))
+    # Convert MongoDB ObjectId to string for JSON serialization
+    for student in students:
+        if "_id" in student:
+            del student["_id"]
     return students
 
 @app.post("/api/students")
